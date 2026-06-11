@@ -24,6 +24,33 @@ const io = new IntersectionObserver(entries => entries.forEach(entry => {
 }), { threshold: .12 });
 document.querySelectorAll('.reveal,.product-card,.solution-tile').forEach(el => io.observe(el));
 
+// 2b. Stat counter animation
+function animateCounter(el, target, duration = 1800) {
+  let start = null;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+  if (entry.isIntersecting) {
+    const numEl = entry.target.querySelector('.stat-number');
+    if (numEl) {
+      const target = parseInt(numEl.dataset.target, 10);
+      animateCounter(numEl, target);
+    }
+    statObserver.unobserve(entry.target);
+  }
+}), { threshold: 0.3 });
+document.querySelectorAll('.stat-card').forEach(el => statObserver.observe(el));
+
+
 // 2. Glassmorphic header scroll effect
 window.addEventListener('scroll', () => {
   if (window.scrollY > 20) {
