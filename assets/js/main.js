@@ -167,4 +167,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+
+  // Handle contact form submission / WhatsApp redirect
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    const submitBtn = contactForm.querySelector('button');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const nameInput = contactForm.querySelector('label:nth-of-type(1) input');
+        const phoneInput = contactForm.querySelector('label:nth-of-type(2) input');
+        const productSelect = contactForm.querySelector('label:nth-of-type(3) select');
+        const messageTextarea = contactForm.querySelector('label:nth-of-type(4) textarea');
+        
+        const name = nameInput ? nameInput.value.trim() : '';
+        const phone = phoneInput ? phoneInput.value.trim() : '';
+        const product = productSelect ? productSelect.value : '';
+        const message = messageTextarea ? messageTextarea.value.trim() : '';
+        
+        if (!name || !phone) {
+          alert('Please enter both your Name and Phone Number to submit the enquiry.');
+          return;
+        }
+        
+        const whatsappNumber = '918454087989';
+        const formattedMsg = `Hello AJ Industries,\n\nI have submitted an enquiry from the website:\n\n• *Name*: ${name}\n• *Phone*: ${phone}\n• *Product*: ${product}\n• *Message/Request*: ${message}`;
+        
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(formattedMsg)}`;
+        window.open(whatsappUrl, '_blank');
+      });
+    }
+  }
 });

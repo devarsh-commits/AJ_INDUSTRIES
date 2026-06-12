@@ -153,6 +153,20 @@ img {
   top: 100%;
 }
 
+.brand-logo {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(10, 39, 66, 0.08);
+  transition: var(--transition);
+}
+
+.brand:hover .brand-logo {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(7, 95, 174, 0.15);
+}
+
 .brand strong {
   font-size: 18px;
   font-weight: 800;
