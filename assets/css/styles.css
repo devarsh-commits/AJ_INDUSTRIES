@@ -1563,6 +1563,17 @@ img {
 
 
 
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 24px;
+  height: 2.5px;
+  background-color: var(--navy);
+  border-radius: 4px;
+  position: absolute;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
 .hamburger-inner {
   top: 50%;
   transform: translateY(-50%);
